@@ -3,6 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="calc_grey">#e3ffec</color>
-    <color name="calc_lime">#55e65f</color>
+    <color name="calc_lime">#CEE655</color>
     <color name="calc_green">#29592c</color>
+    <color name="calc_background">#617C65</color>
 </resources>

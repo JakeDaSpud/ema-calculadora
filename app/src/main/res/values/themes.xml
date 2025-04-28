@@ -7,29 +7,35 @@
 
     <style name="Theme.Calculadora_de_Jake" parent="Base.Theme.Calculadora_de_Jake" />
 
+    <!-- All this just for Square Buttons... -->
+    <style name="SquareCorners">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">0dp</item>
+    </style>
+
     <!-- Regular Button Theme -->
     <style name="Theme.Calculadora_de_Jake.regularButton" parent="Theme.Calculadora_de_Jake">
-
         <!-- Button Background Colour -->
-        <item name="android:colorBackground">@color/calc_grey</item>
-
+        <item name="android:backgroundTint">@color/calc_grey</item>
         <!-- Button Text Colour -->
         <item name="android:textColor">@color/black</item>
-
         <!-- Button Roundness -->
-        <item name="android:radius">0px</item>
-
+        <item name="shapeAppearanceOverlay">@style/SquareCorners</item>
+        <!-- Button Text Size -->
+        <item name="android:textSize">32dp</item>
     </style>
 
     <!-- Modifier Button Theme -->
     <style name="Theme.Calculadora_de_Jake.modifierButton" parent="Theme.Calculadora_de_Jake.regularButton">
-        <item name="android:colorBackground">@color/calc_lime</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:backgroundTint">@color/calc_lime</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <!-- Important Button Theme -->
     <style name="Theme.Calculadora_de_Jake.importantButton" parent="Theme.Calculadora_de_Jake.regularButton">
-        <item name="android:colorBackground">@color/calc_green</item>
+        <item name="android:backgroundTint">@color/calc_green</item>
         <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>
