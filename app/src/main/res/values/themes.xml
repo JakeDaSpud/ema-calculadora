@@ -6,4 +6,30 @@
     </style>
 
     <style name="Theme.Calculadora_de_Jake" parent="Base.Theme.Calculadora_de_Jake" />
+
+    <!-- Regular Button Theme -->
+    <style name="Theme.Calculadora_de_Jake.regularButton" parent="Theme.Calculadora_de_Jake">
+
+        <!-- Button Background Colour -->
+        <item name="android:colorBackground">@color/calc_grey</item>
+
+        <!-- Button Text Colour -->
+        <item name="android:textColor">@color/black</item>
+
+        <!-- Button Roundness -->
+        <item name="android:radius">0px</item>
+
+    </style>
+
+    <!-- Modifier Button Theme -->
+    <style name="Theme.Calculadora_de_Jake.modifierButton" parent="Theme.Calculadora_de_Jake.regularButton">
+        <item name="android:colorBackground">@color/calc_lime</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <!-- Important Button Theme -->
+    <style name="Theme.Calculadora_de_Jake.importantButton" parent="Theme.Calculadora_de_Jake.regularButton">
+        <item name="android:colorBackground">@color/calc_green</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
 </resources>
