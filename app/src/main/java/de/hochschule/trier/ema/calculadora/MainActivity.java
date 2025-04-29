@@ -1,6 +1,7 @@
 package de.hochschule.trier.ema.calculadora;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -65,6 +66,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnClear.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                onClearHeld();
+                return false;
+            }
+        });
+
         btnSignFlip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,16 +93,39 @@ public class MainActivity extends AppCompatActivity {
     protected void onEqualsPressed() {
         //term corresponds to the text entered in the display so far; e.g. "5+6".
         String term = screen.getText().toString();
-        Expression calc = new ExpressionBuilder(term)
+
+        String result = "uh oh";
+
+        //Here we now calculate the result
+        try {
+            if (term.length() < 3) {
+                term = "0" + term;
+            }
+
+            Expression calc = new ExpressionBuilder(term)
                 .variables("pi", "e")
                 .build();
 
-        //Here we now calculate the result
-        double result = calc.evaluate();
-        screen.setText(Double.toString(result));
+            result = Double.toString(calc.evaluate());
+        } catch (Exception e) {
+            result = "Error";
+            Log.e(getClass().getName(), "catch block", e);
+        }
+
+        screen.setText(result);
     }
 
     protected void onClearPressed() {
+        int len = screen.getText().length();
+
+        if (len < 2) {
+            onClearHeld();
+        } else {
+            screen.setText(screen.getText().subSequence(0, len-1));
+        }
+    }
+
+    protected void onClearHeld() {
         screen.setText("0");
     }
 
