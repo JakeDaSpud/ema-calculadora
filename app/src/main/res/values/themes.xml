@@ -22,7 +22,7 @@
         <!-- Button Roundness -->
         <item name="shapeAppearanceOverlay">@style/SquareCorners</item>
         <!-- Button Text Size -->
-        <item name="android:textSize">32dp</item>
+        <item name="android:autoSizeTextType">uniform</item>
     </style>
 
     <!-- Modifier Button Theme -->

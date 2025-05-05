@@ -22,6 +22,7 @@
 
         <TextView
             android:id="@+id/calculatorScreen"
+            style="@style/Theme.Calculadora_de_Jake.regularButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight=".5"
@@ -29,7 +30,7 @@
             android:clickable="false"
             android:fontFamily="monospace"
             android:paddingHorizontal="5dp"
-            android:text="0"
+            android:text="@string/calc_0"
             android:textAlignment="textEnd"
             android:textAllCaps="true"
             android:textSize="96sp"
@@ -48,7 +49,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="huh" />
+                android:text="@string/calc_land_huh" />
 
             <Button
                 android:id="@+id/buttonDivide2"
@@ -56,7 +57,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="yea" />
+                android:text="@string/calc_land_yeah" />
 
             <Button
                 android:id="@+id/buttonClear"
@@ -64,7 +65,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
-                android:text="Clear" />
+                android:text="@string/calc_clear" />
 
             <Button
                 android:id="@+id/buttonFlipSign"
@@ -72,7 +73,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="+ -" />
+                android:text="@string/calc_flip_sign" />
 
             <Button
                 android:id="@+id/buttonDivide"
@@ -80,7 +81,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="/" />
+                android:text="@string/calc_divide" />
 
         </LinearLayout>
 
@@ -97,7 +98,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="huh" />
+                android:text="@string/calc_land_yeah" />
 
             <Button
                 android:id="@+id/buttonDivide3"
@@ -105,7 +106,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="yea" />
+                android:text="@string/calc_land_huh" />
 
             <Button
                 android:id="@+id/button7"
@@ -113,7 +114,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="7" />
+                android:autoSizeTextType="uniform"
+                android:text="@string/calc_7" />
 
             <Button
                 android:id="@+id/button8"
@@ -121,7 +123,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="8" />
+                android:text="@string/calc_8" />
 
             <Button
                 android:id="@+id/button9"
@@ -129,7 +131,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="9" />
+                android:text="@string/calc_9" />
 
             <Button
                 android:id="@+id/buttonMultiply"
@@ -137,7 +139,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="*" />
+                android:text="@string/calc_multiply" />
         </LinearLayout>
 
         <LinearLayout
@@ -153,7 +155,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="huh" />
+                android:text="@string/calc_land_huh" />
 
             <Button
                 android:id="@+id/buttonDivide4"
@@ -161,7 +163,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="yea" />
+                android:text="@string/calc_land_yeah" />
 
             <Button
                 android:id="@+id/button4"
@@ -169,7 +171,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="4" />
+                android:text="@string/calc_4" />
 
             <Button
                 android:id="@+id/button5"
@@ -177,7 +179,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="5" />
+                android:text="@string/calc_5" />
 
             <Button
                 android:id="@+id/button6"
@@ -185,7 +187,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="6" />
+                android:text="@string/calc_6" />
 
             <Button
                 android:id="@+id/buttonSubtract"
@@ -193,7 +195,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="-" />
+                android:text="@string/calc_minus" />
         </LinearLayout>
 
         <LinearLayout
@@ -209,7 +211,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="huh" />
+                android:text="@string/calc_land_yeah" />
 
             <Button
                 android:id="@+id/buttonDivide5"
@@ -217,7 +219,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="yea" />
+                android:text="@string/calc_land_huh" />
 
             <Button
                 android:id="@+id/button1"
@@ -225,7 +227,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="1" />
+                android:text="@string/calc_1" />
 
             <Button
                 android:id="@+id/button2"
@@ -233,7 +235,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="2" />
+                android:text="@string/calc_2" />
 
             <Button
                 android:id="@+id/button3"
@@ -241,7 +243,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="3" />
+                android:text="@string/calc_3" />
 
             <Button
                 android:id="@+id/buttonAdd"
@@ -249,7 +251,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="+" />
+                android:text="@string/calc_plus" />
 
         </LinearLayout>
 
@@ -266,7 +268,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="huh" />
+                android:text="@string/calc_land_huh" />
 
             <Button
                 android:id="@+id/buttonDivide6"
@@ -274,7 +276,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="yea" />
+                android:text="@string/calc_land_yeah" />
 
             <Button
                 android:id="@+id/button0"
@@ -282,7 +284,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
-                android:text="0" />
+                android:text="@string/calc_0" />
 
             <Button
                 android:id="@+id/buttonPeriod"
@@ -290,7 +292,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="." />
+                android:text="@string/calc_period" />
 
             <Button
                 android:id="@+id/buttonEquals"
@@ -298,7 +300,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="=" />
+                android:text="@string/calc_equals" />
         </LinearLayout>
 
     </LinearLayout>
