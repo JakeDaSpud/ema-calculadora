@@ -1,5 +1,9 @@
 package de.hochschule.trier.ema.calculadora;
 
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,7 +18,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import net.objecthunter.exp4j.*;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     private TextView screen;
     private Button
@@ -24,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
 
     private int[] groupedIds = {R.id.button0, R.id.button1, R.id.button2, R.id.button3, R.id.button4, R.id.button5, R.id.button6, R.id.button7, R.id.button8, R.id.button9, R.id.buttonAdd, R.id.buttonSubtract, R.id.buttonMultiply, R.id.buttonDivide, R.id.buttonPeriod};
 
+    // Accelerometer stuff
+    private SensorManager mSensorManager;
+    private Sensor mAccelerometer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +40,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calculator);
 
         // -----
+
+        mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+        mSensorManager.registerListener(
+                this,
+                mAccelerometer,
+                SensorManager.SENSOR_DELAY_UI  // <-- Lower sensitivity (slower updates)
+        );
 
         screen = findViewById(R.id.calculatorScreen);
 
@@ -88,6 +105,23 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    protected void onResume() {
+        super.onResume();
+        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    protected void onPause() {
+        super.onPause();
+        mSensorManager.unregisterListener(this);
+    }
+
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    }
+
+    public void onSensorChanged(SensorEvent event) {
+        onEqualsPressed();
     }
 
     protected void onEqualsPressed() {
