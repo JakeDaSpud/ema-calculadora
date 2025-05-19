@@ -51,8 +51,17 @@
                 style="@style/Theme.Calculadora_de_Jake.importantButton"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:text="@string/calc_clear" />
+
+            <Button
+                android:id="@+id/buttonResize"
+                style="@style/Theme.Calculadora_de_Jake.importantButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="showResizePopupMenu"
+                android:text="@string/calc_resize" />
 
             <Button
                 android:id="@+id/buttonFlipSign"

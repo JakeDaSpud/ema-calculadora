@@ -12,7 +12,12 @@
     <string name="calc_8">8</string>
     <string name="calc_9">9</string>
 
-    <string name="calc_clear">Clear</string>
+    <string name="calc_resize">aA</string>
+    <string name="size_small">Small</string>
+    <string name="size_middle">Medium</string>
+    <string name="size_large">Large</string>
+
+    <string name="calc_clear">C</string>
     <string name="calc_flip_sign">+-</string>
     <string name="calc_plus">+</string>
     <string name="calc_minus">-</string>

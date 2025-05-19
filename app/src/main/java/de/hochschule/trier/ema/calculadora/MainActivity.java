@@ -7,8 +7,12 @@ import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -21,13 +25,13 @@ import androidx.core.view.WindowInsetsCompat;
 import net.objecthunter.exp4j.*;
 
 @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
-public class MainActivity extends AppCompatActivity implements SensorEventListener {
+public class MainActivity extends AppCompatActivity implements SensorEventListener, PopupMenu.OnMenuItemClickListener {
 
     private TextView screen;
     private Button
             btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9,
             btnAdd, btnSubtract, btnMultiply, btnDivide,
-            btnEquals, btnClear, btnSignFlip, btnPeriod;
+            btnEquals, btnClear, btnSignFlip, btnResize, btnPeriod;
 
     private int[] groupedIds = {R.id.button0, R.id.button1, R.id.button2, R.id.button3, R.id.button4, R.id.button5, R.id.button6, R.id.button7, R.id.button8, R.id.button9, R.id.buttonAdd, R.id.buttonSubtract, R.id.buttonMultiply, R.id.buttonDivide, R.id.buttonPeriod};
 
@@ -35,6 +39,35 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
     final private float SHAKE_THRESHOLD = 0.01f;
+
+    private static final String DISPLAY_TEXT = "display_text";
+    private static final String BUTTON_FONTSIZE = "button_size";
+    int currentButtonSize = 12;
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        // Obviously save the screen text
+        outState.putString(DISPLAY_TEXT, screen.getText().toString());
+        // Save the button font size
+        outState.putInt(BUTTON_FONTSIZE, (int) currentButtonSize);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        String restoredText = savedInstanceState.getString(DISPLAY_TEXT);
+        int restoredSize = savedInstanceState.getInt(BUTTON_FONTSIZE);
+
+        if (restoredText != null) {
+            screen.setText(restoredText);
+        }
+
+        currentButtonSize = restoredSize;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +93,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         btnEquals = findViewById(R.id.buttonEquals);
         btnClear = findViewById(R.id.buttonClear);
         btnSignFlip = findViewById(R.id.buttonFlipSign);
+        btnResize = findViewById(R.id.buttonResize);
+
+        setTextButtonSize(currentButtonSize);
 
         // Set Event Listeners
         for (int id : groupedIds) {
@@ -111,8 +147,43 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         });
     }
 
+    public void showResizePopupMenu(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.setOnMenuItemClickListener(this);
+
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.size_menu, popup.getMenu());
+
+        popup.show();
+    }
+
+    // Setting actual text size
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+
+        if (item.getItemId() == R.id.size_small) {
+            setTextButtonSize(12);
+            return true;
+        }
+
+        else if (item.getItemId() == R.id.size_middle) {
+            setTextButtonSize(24);
+            return true;
+        }
+
+        else if (item.getItemId() == R.id.size_large) {
+            setTextButtonSize(32);
+            return true;
+        }
+
+        return false;
+    }
+
     protected void setTextButtonSize(int newTextSize) {
-        
+        for (int id : groupedIds) {
+            Button button = findViewById(id);
+            button.setTextSize(TypedValue.COMPLEX_UNIT_PT, newTextSize);
+        }
     }
 
     protected void onResume() {
