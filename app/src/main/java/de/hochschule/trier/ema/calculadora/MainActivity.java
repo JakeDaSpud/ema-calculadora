@@ -4,6 +4,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -18,6 +20,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import net.objecthunter.exp4j.*;
 
+@RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     private TextView screen;
@@ -31,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     // Accelerometer stuff
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
+    final private float SHAKE_THRESHOLD = 0.01f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +111,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         });
     }
 
+    protected void setTextButtonSize(int newTextSize) {
+        
+    }
+
     protected void onResume() {
         super.onResume();
         mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
@@ -121,7 +129,18 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     public void onSensorChanged(SensorEvent event) {
-        onEqualsPressed();
+        if (event.sensor.getType() == Sensor.TYPE_LINEAR_ACCELERATION) {
+            float x, y, z;
+            x = event.values[0];
+            y = event.values[1];
+            z = event.values[2];
+
+            float acceleration = (float) Math.sqrt(x*x + y*y + z*z);
+
+            if (acceleration > SHAKE_THRESHOLD) {
+                onEqualsPressed();
+            }
+        }
     }
 
     protected void onEqualsPressed() {
