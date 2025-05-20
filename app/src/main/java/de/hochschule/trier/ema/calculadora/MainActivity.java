@@ -11,18 +11,24 @@ import android.util.TypedValue;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import net.objecthunter.exp4j.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
 public class MainActivity extends AppCompatActivity implements SensorEventListener, PopupMenu.OnMenuItemClickListener {
@@ -34,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             btnEquals, btnClear, btnSignFlip, btnResize, btnPeriod;
 
     private int[] groupedIds = {R.id.button0, R.id.button1, R.id.button2, R.id.button3, R.id.button4, R.id.button5, R.id.button6, R.id.button7, R.id.button8, R.id.button9, R.id.buttonAdd, R.id.buttonSubtract, R.id.buttonMultiply, R.id.buttonDivide, R.id.buttonPeriod};
+    private List<Integer> allButtonIds = new ArrayList<>();
 
     // Accelerometer stuff
     private SensorManager mSensorManager;
@@ -58,6 +65,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
 
+        fillButtonArray();
+
         String restoredText = savedInstanceState.getString(DISPLAY_TEXT);
         int restoredSize = savedInstanceState.getInt(BUTTON_FONTSIZE);
 
@@ -67,7 +76,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         currentButtonSize = restoredSize;
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,8 +102,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         btnClear = findViewById(R.id.buttonClear);
         btnSignFlip = findViewById(R.id.buttonFlipSign);
         btnResize = findViewById(R.id.buttonResize);
-
-        setTextButtonSize(currentButtonSize);
 
         // Set Event Listeners
         for (int id : groupedIds) {
@@ -145,6 +151,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        fillButtonArray();
+        setTextButtonSize(currentButtonSize);
     }
 
     public void showResizePopupMenu(View v) {
@@ -180,9 +189,58 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     protected void setTextButtonSize(int newTextSize) {
-        for (int id : groupedIds) {
+        for (int id : allButtonIds) {
             Button button = findViewById(id);
             button.setTextSize(TypedValue.COMPLEX_UNIT_PT, newTextSize);
+        }
+    }
+
+    protected void fillButtonArray() {
+        ConstraintLayout main = findViewById(R.id.main);
+
+        if (main == null) {
+            throw new RuntimeException("Main is null???");
+        }
+
+        if (main.getClass() == ConstraintLayout.class) {
+            main = (ConstraintLayout) findViewById(R.id.main);
+        } else {
+            main = null;
+            throw new RuntimeException("Not a ConstraintLayout feller");
+        }
+
+        LinearLayout linearLayout;
+
+        if (main.getChildAt(0).getClass() == LinearLayout.class && main != null) {
+            linearLayout = (LinearLayout) main.getChildAt(0);
+        } else {
+            linearLayout = null;
+            throw new RuntimeException("ConstraintLayout is null, or child is not a LinearLayout");
+        }
+
+        if (allButtonIds == null) {
+            allButtonIds = new ArrayList<>();
+        }
+
+        // Reset List
+        allButtonIds.clear();
+
+        collectButtons(linearLayout);
+    }
+
+    protected void collectButtons(ViewGroup parent) {
+        for (int i = 0; i < parent.getChildCount(); i++) {
+
+            View child = parent.getChildAt(i);
+
+            // If this is a Button, add to list to be iterated on
+            if (child instanceof Button) {
+                allButtonIds.add(child.getId());
+            }
+
+            else if (child instanceof ViewGroup) {
+                collectButtons((ViewGroup) child);
+            }
         }
     }
 
